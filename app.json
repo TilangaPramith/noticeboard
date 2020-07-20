@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "HelloWorld",
+    "slug": "testapk",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon_transparent.png",
+    "splash": {
+      "image": "./assets/Logo_Transparent.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rocketseat.devradar"
+    },
+    "android": {
+      "package": "com.rocketseat.devradar"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
