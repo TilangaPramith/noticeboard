@@ -7,15 +7,16 @@ admin.initializeApp(functions.config().firebase);
 exports.sendPushNotification = functions.database.ref('/blogs/{id}').onCreate(event => {
     const root = event.data.ref.root
     var messages = []
-
-    return root.child('/users').once('value').then((snapshot) => {
+    console.log('work');
+    return root.child('/users').on('value').then((snapshot) => {
         snapshot.array.forEach(childSnapshot => {
             var expoToken = childSnapshot.val().expoToken
 
             if(expoToken) {
                 messages.push({
                     "to": expoToken,
-                    "body": "new notice added"
+                    "title": "Noticeboard Alert",
+                    "body": "New notice added into noticeboard"
                 })
             }
         });
@@ -25,7 +26,9 @@ exports.sendPushNotification = functions.database.ref('/blogs/{id}').onCreate(ev
     .then( messages => {
         fetch("https://exp.host/--/api/v2/push/send",{
             headers: {
+                "host": "exp.host",
                 "Accept": "application/json",
+                "Accept-Encoding": "gzip, deflate",
                 "Content-Type": "application/json",
                 
             },

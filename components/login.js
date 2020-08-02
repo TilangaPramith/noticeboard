@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Constants from "expo-constants";
 //import * as Notifications from 'expo-notifications';
 import {Notifications} from "expo";
-import {Permissions} from "expo";
-//import * as Permissions from 'expo-permissions';
+//import {Permissions} from "expo";
+import * as Permissions from 'expo-permissions';
 
 export default class Login extends Component {
   

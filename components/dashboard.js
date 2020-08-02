@@ -233,10 +233,16 @@ export default class Dashboard extends Component {
                 style ={styles.logoutText}
                 
               >
-                Logout
+                  Logout
               </Text>
 
           </TouchableOpacity>
+          
+        </View>
+        <View>
+        <Text
+            style={{fontSize:9}}
+          >U.K.D.T.P.VIDUSARA @ 17001862(2017/CS/186)</Text>
         </View>
       </View>
     );
@@ -279,7 +285,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    borderWidth: 1,
   },
   preloader: {
     left: 0,
