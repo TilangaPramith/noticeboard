@@ -59,9 +59,10 @@ export default class Edit extends Component {
     }
     else{
       let title = this.state.title;
-      let content = this.state.content
-      const { key1, title1, content1 } = this.props.route.params;
-      firebase.database().ref('/blogs').child(key1).update({title,content})
+      let content = this.state.content;
+      let email = this.state.email;
+      const { key1, title1, content1, email1 } = this.props.route.params;
+      firebase.database().ref('/blogs').child(key1).update({title,content,email})
       .then(() => {
         console.log("inserted")
         this.setState({title: ''})

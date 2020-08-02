@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../database/firebase';
 
+import {Permissions, Notification, Notifications} from 'expo';
+import { assignWith } from 'lodash';
+import { unstable_batchedUpdates } from 'react-dom';
 
 export default class NewPost extends Component {
   
@@ -40,6 +43,7 @@ export default class NewPost extends Component {
     // console.log(this.state.email);
     // console.log('yes');
   }
+
 
   updateInputVal = (val, prop) => {
     const state = this.state;

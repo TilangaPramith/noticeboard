@@ -23,16 +23,19 @@ export default class Dashboard extends Component {
   
 
   componentDidMount(){
-    //console.log(localStorage.getItem('key'));
-        
         console.log('xxxxxxxxxxxxxxxyyyyyyyyyyyyyyy');
     
     firebase.auth().onAuthStateChanged((user)=>{
-      if(user.email || user.displayName){
+      console.log("dashboard")
+      console.log(user)
+      if(user){
         this.setState({
           email: user.email,
           displayName: user.displayName,
         })
+      }
+      else{
+        this.props.navigation.navigate("Login");
       }
       console.log('pppppppppppppppppppppppppppppppppppppppppppp')
       
@@ -143,8 +146,7 @@ export default class Dashboard extends Component {
                 email: "",
                 displayName: "",
               })
-              
-              
+
               this.props.navigation.navigate('Login')
             })
             .catch(error => this.setState({ errorMessage: error.message }))
@@ -290,3 +292,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   }
 });
+

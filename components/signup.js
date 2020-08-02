@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, AsyncStorage } from 'react-native';
 import firebase from '../database/firebase';
 
-
 export default class Signup extends Component {
   
   constructor() {
@@ -16,8 +15,19 @@ export default class Signup extends Component {
   }
 
   componentDidMount(){
+    firebase.auth().onAuthStateChanged((user)=>{
+      console.log("signup");
+      console.log(user)
+      if(user){
+        this.props.navigation.navigate("Dashboard");
+      }
+      else{
+        console.log("already logged");
+      }
+    })
     
   }
+
 
   updateInputVal = (val, prop) => {
     const state = this.state;
@@ -40,15 +50,18 @@ export default class Signup extends Component {
           displayName: this.state.displayName
         })
         console.log('User registered successfully!')
+        Alert.alert('User registered successfully!')
         this.setState({
           isLoading: false,
           displayName: '',
           email: '', 
           password: ''
         })
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('Signup')
       })
-      .catch(error => this.setState({ errorMessage: error.message }))      
+      .catch(error => {this.setState({ errorMessage: error.message })
+        console.log("ERROR ",error)
+      })      
     }
   }
 

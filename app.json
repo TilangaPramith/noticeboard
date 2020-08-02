@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "HelloWorld",
+    "name": "NoticeBoard",
     "slug": "testapk",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,10 +18,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rocketseat.devradar"
+      "bundleIdentifier": "com.semicolon.noticeboard"
     },
     "android": {
-      "package": "com.rocketseat.devradar"
+      "package": "com.semicolon.noticeboard",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

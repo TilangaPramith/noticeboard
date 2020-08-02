@@ -3,7 +3,11 @@ import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } f
 import firebase from '../database/firebase';
 import AsyncStorage from '@react-native-community/async-storage'
 
-
+import Constants from "expo-constants";
+//import * as Notifications from 'expo-notifications';
+import {Notifications} from "expo";
+import {Permissions} from "expo";
+//import * as Permissions from 'expo-permissions';
 
 export default class Login extends Component {
   
@@ -12,6 +16,7 @@ export default class Login extends Component {
     this.state = { 
       email: '', 
       password: '',
+      expoPushToken: "",
       isLoading: false
     }
   }
@@ -19,7 +24,18 @@ export default class Login extends Component {
   
 
   componentDidMount(){
-    
+    firebase.auth().onAuthStateChanged((user)=>{
+      console.log("Login")
+      console.log(user)
+      if(user){
+        console.log('wwwwwwwwwwwwwwwwwwwwww')
+        console.log(user);
+        this.props.navigation.navigate("Dashboard");
+      }
+      else{
+        console.log("already logged");
+      }
+    })
   }
 
   updateInputVal = (val, prop) => {
@@ -28,7 +44,41 @@ export default class Login extends Component {
     this.setState(state);
   }
 
+  registerForPushNotificationAsync = async(user) => {
+    console.log('come');
+    console.log('USER  ',user.uid)
+    console.log('USER  ',user.email);
+
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      console.log('xaxvc')
+      
+      // let token;
+      let token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+      var updates = {}
+      console.log('tttttttt');
+      console.log("TOKEN ",token);
+      updates['/expoToken'] = token;
+      firebase.database().ref("/users").child(user.uid).update(updates)
+      this.setState({ expoPushToken: token });
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+
+  }
+
   userLogin = () => {
+    console.log("oooooooooooooooooooooooooooooooooooooooo")
     console.log('usrr ',this.state.email);
     console.log(this.state.email);
 
@@ -42,8 +92,9 @@ export default class Login extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
-        console.log(res.user)
+        console.log(res.user.uid)
         console.log('User logged-in successfully!');
+        this.registerForPushNotificationAsync(res.user);
         
         // localStorage.setItem('key', this.state.email);
         // console.log(localStorage.getItem('key'));
