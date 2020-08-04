@@ -196,7 +196,7 @@ export default class Dashboard extends Component {
         </View>
 
         <View style={{ marginBottom: 15, paddingBottom: 10,marginTop:10,backgroundColor:'#D358F7', width: '100%', elevation:8, borderRadius:15}}> 
-          <Text style={{fontSize:30, fontWeight:"bold", width: '100%', }}>                Notices </Text>
+          <Text style={{fontSize:35, fontWeight:"bold", width: '100%', textAlign:"center" }}>Notices </Text>
         </View>
         <ScrollView>
 
@@ -242,7 +242,7 @@ export default class Dashboard extends Component {
         <View>
         <Text
             style={{fontSize:9}}
-          >U.K.D.T.P.VIDUSARA @ 17001862(2017/CS/186)</Text>
+          >U.K.D.T.P.VIDUSARA @ 17001862 (2017/CS/186)</Text>
         </View>
       </View>
     );
@@ -278,7 +278,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     textAlign: 'center',
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textDecorationLine: 'underline'
   },
   logoutText: {
     color: 'red',
@@ -287,6 +288,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     borderWidth: 1,
+    elevation:10
   },
   preloader: {
     left: 0,

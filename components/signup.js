@@ -50,14 +50,21 @@ export default class Signup extends Component {
           displayName: this.state.displayName
         })
         console.log('User registered successfully!')
-        Alert.alert('User registered successfully!')
+        // Alert.alert('User registered successfully!')
         this.setState({
           isLoading: false,
           displayName: '',
           email: '', 
           password: ''
         })
-        this.props.navigation.navigate('Signup')
+        firebase.auth().signOut().then(()=>{
+          Alert.alert('User registered successfully!')
+          this.props.navigation.navigate('Login')
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+        // this.props.navigation.navigate('Signup')
       })
       .catch(error => {this.setState({ errorMessage: error.message })
         console.log("ERROR ",error)
